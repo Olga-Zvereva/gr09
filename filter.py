@@ -26,8 +26,13 @@ def filter(arr, cell_size, graduation):
     return arr
 
 
-img = Image.open("img2.jpg")
+img_name = input("Введите название изображения: ") + ".jpg"
+cell_size_data = int(input("Введите размер мозаики: "))
+graduation_data = int(input("Введите градацию: "))
+output = input("Введите название выходной картинки: ") + ".jpg"
+
+img = Image.open(img_name)
 array = np.array(img)
-array = filter(array, 10, 50)
+array = filter(array, cell_size_data, graduation_data)
 res = Image.fromarray(array)
-res.save('res.jpg')
+res.save(output)
