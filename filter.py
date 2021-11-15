@@ -37,7 +37,9 @@ def write(array, filename):
 
 
 if __name__ == "__main__":
-    arr = read("img2.jpg")
-    arr = to_grayscale(arr, 10, 6)
-    write(arr, "res.jpg")
+    read_name = input()
+    write_name = input()
+    arr = read(read_name)
+    arr = to_grayscale(arr, 5, 15)
+    write(arr, write_name)
 
