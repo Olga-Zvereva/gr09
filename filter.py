@@ -1,30 +1,34 @@
 from PIL import Image
 import numpy as np
 
-img = Image.open("img2.jpg")
-arr = np.array(img)
-a = len(arr)
-a1 = len(arr[1])
-i = 0
+def pixel_art_filter(mosaic_side: int, step: int):
+    img_length, img_height = len(img_arr), len(img_arr[1])
+    segment_x = 0
+    while segment_x < img_length:
+        segment_y = 0
+        while segment_y < img_height:
+            avg_brightness = find_average_brightness(segment_x, segment_y, mosaic_side)
+            pixel_coloring(avg_brightness, segment_x, segment_y, mosaic_side, step)
+            segment_y += mosaic_side
+        segment_x += mosaic_side
 
-while i < a:
-    j = 0
-    while j < a1:
-        s = 0
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                n0 = arr[n][n1][0]
-                n2 = arr[n][n1][1]
-                n3 = arr[n][n1][2]
-                M = n0 + n2 + n3
-                s += M / 3
-        s = int(s // 100)
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                arr[n][n1][0] = int(s // 50) * 50
-                arr[n][n1][1] = int(s // 50) * 50
-                arr[n][n1][2] = int(s // 50) * 50
-        j = j + 10
-    i = i + 10
-res = Image.fromarray(arr)
-res.save('res.jpg')
+
+def find_average_brightness(segment_x, segment_y, mosaic_side):
+    result = 0
+    for x in range(segment_x, segment_x + mosaic_side):
+        for y in range(segment_y, segment_y + mosaic_side):
+            result += sum(img_arr[x][y][range(3)] / 3)
+    return int(result) // (mosaic_side * mosaic_side)
+
+
+def pixel_coloring(avg_brightness, segment_x, segment_y, mosaic_side, grayscale):
+    for x in range(segment_x, segment_x + mosaic_side):
+        for y in range(segment_y, segment_y + mosaic_side):
+            img_arr[x][y][range(3)] = int(avg_brightness // grayscale) * grayscale
+
+
+np.seterr(over='ignore')
+img_arr = np.array(Image.open("img2.jpg"))
+pixel_art_filter(int(input()), int(input()))
+filtered_img = Image.fromarray(img_arr)
+filtered_img.save('res.jpg')
