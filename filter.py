@@ -2,53 +2,31 @@ from PIL import Image
 import numpy as np
 img = Image.open("img2.jpg")
 arr = np.array(img)
-m_w = len(arr)
-m_h = len(arr[1])
-i = 0
-step = None
-#ПЕРЕВОД В СТИЛЬ PEP8
-
-
-#ыделение функций
 
 
 def find_step(n):
-    return int(255 / (n - 1) - 1 if 255 % (n - 1) == 0 else 255 / (n - 1)) 
+    return int(255 / (n - 1) - 1 if 255 % (n - 1) == 0 else 255 / (n - 1))
+#Преобразование в матричный вид
 
-
-#выделение функций 
 def find_av_brightness(i, j, arr, m_h, m_w, step):
-   while i < a :
-    j = 0
-    while j < a1 :
-        s = 0
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                n0 = arr[n][n1][0]
-                n2 = arr[n][n1][1]
-                n3 = arr[n][n1][2]
-                M = n0 + n2 + n3
-                s += M/3
-        s = int(s // 100)
-    return s
-#выделение функций
+    br = 0.
+    br += arr[i: i + m_h, j: j + m_w, :].sum() / 3
+    br //= m_h * m_w
+    br -= br % step
+    return br
+#Преобразование в матричный вид
 
+def do_mosaic(arr, m_h, m_w, step):
+    for i in range(0, len(arr), m_h):
+        for j in range(0, len(arr[1]), m_w):
+            brightness = find_av_brightness(i, j, arr, m_h, m_w, step)
+            arr[i: i + m_h, j: j + m_w, :] = brightness
 
-def do_mosaic(i, j, arr, m_h, m_w, step):
-    while i < a :
-        j = 0
-            while j < a1 :
-                for n in range(i, i + 10):
-                    for n1 in range(j, j + 10):
-                        arr[n][n1][0] = int(s // 50) * 50
-                        arr[n][n1][1] = int(s // 50) * 50
-                        arr[n][n1][2] = int(s // 50) * 50
-                j = j + 10
-            i = i + 10
-    return i
 
 
 inp_sizes = input('Введите ширину и высоту мозайки (например: 100,100): ')
-num_grad = int(input('Enter the number of gradations(example: 6): '))
+num_grad = int(input('Enter the number of gradations(for example: 6): '))
+e_h, e_w = map(int, inp_sizes.split(','))
+do_mosaic(inp_im, e_h, e_w, find_step(num_grad)) 
 res = Image.fromarray(arr)
 res.save('res.jpg')
