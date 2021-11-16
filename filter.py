@@ -3,28 +3,22 @@ import numpy as np
 
 def pixel_art_filter(mosaic_side: int, step: int):
     img_length, img_height = len(img_arr), len(img_arr[1])
-    segment_x = 0
-    while segment_x < img_length:
-        segment_y = 0
-        while segment_y < img_height:
-            avg_brightness = find_average_brightness(segment_x, segment_y, mosaic_side)
-            pixel_coloring(avg_brightness, segment_x, segment_y, mosaic_side, step)
-            segment_y += mosaic_side
-        segment_x += mosaic_side
+    segment_x, segment_y = np.arange(0, img_length, mosaic_side), np.arange(0, img_height, mosaic_side)
+    [[pixel_coloring(x, y, mosaic_side, step) for y in segment_y] for x in segment_x]
 
 
-def find_average_brightness(segment_x, segment_y, mosaic_side):
+def find_average_brightness(x, y, mosaic_side):
     result = 0
-    for x in range(segment_x, segment_x + mosaic_side):
-        for y in range(segment_y, segment_y + mosaic_side):
-            result += sum(img_arr[x][y][range(3)] / 3)
+    for n, m in np.nditer([np.arange(x, x + mosaic_side)[:, None], np.arange(y, y + mosaic_side)]):
+        result += img_arr[n][m][0] / 3 + img_arr[n][m][1] / 3 + img_arr[n][m][2] / 3
     return int(result) // (mosaic_side * mosaic_side)
 
 
-def pixel_coloring(avg_brightness, segment_x, segment_y, mosaic_side, grayscale):
-    for x in range(segment_x, segment_x + mosaic_side):
-        for y in range(segment_y, segment_y + mosaic_side):
-            img_arr[x][y][range(3)] = int(avg_brightness // grayscale) * grayscale
+def pixel_coloring(x, y, mosaic_side, step):
+    avg_brightness = find_average_brightness(x, y, mosaic_side)
+    for n in range(x, x + mosaic_side):
+        for m in range(y, y + mosaic_side):
+            img_arr[n][m][range(3)] = int(avg_brightness // step) * step
 
 
 np.seterr(over='ignore')
