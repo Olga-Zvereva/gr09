@@ -21,8 +21,20 @@ def pixel_coloring(x, y, mosaic_side, step):
             img_arr[n][m][range(3)] = int(avg_brightness // step) * step
 
 
+def start_program():
+    global img_arr
+    print("Введите имя исходного изображения:")
+    original_img_name = input()
+    print("Введите имя конечного изображения:")
+    filtered_img_name = input()
+    print("Задайте значения размера мозайки и шага:")
+    mosaic_side, step = map(int, input().split())
+    img_arr = np.array(Image.open(original_img_name))
+    pixel_art_filter(mosaic_side, step)
+    changed_img = Image.fromarray(img_arr)
+    changed_img.save(filtered_img_name)
+    print("Обработка успешно завершена")
+
+
 np.seterr(over='ignore')
-img_arr = np.array(Image.open("img2.jpg"))
-pixel_art_filter(int(input()), int(input()))
-filtered_img = Image.fromarray(img_arr)
-filtered_img.save('res.jpg')
+start_program()
