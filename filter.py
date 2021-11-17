@@ -1,28 +1,40 @@
 from PIL import Image
 import numpy as np
-img = Image.open("img2.jpg")
-arr = np.array(img)
-a = len(arr)
-a1 = len(arr[1])
-i = 0
-while i < a - 11:
-    j = 0
-    while j < a1 - 11:
-        s = 0
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                n1 = arr[n][n1][0]
-                n2 = arr[n][n1][1]
-                n3 = arr[n][n1][2]
-                M = n1 + n2 + n3
-                s += M
-        s = int(s // 100)
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                arr[n][n1][0] = int(s // 50) * 50
-                arr[n][n1][1] = int(s // 50) * 50
-                arr[n][n1][2] = int(s // 50) * 50
-        j = j + 10
-    i = i + 10
-res = Image.fromarray(arr)
-res.save('res.jpg')
+
+
+def filter_image(array, mosaic_size):
+    a = len(array) - mosaic_size + 1
+    a1 = len(array[1]) - mosaic_size + 1
+    for i in range(0, a, mosaic_size):
+        for j in range(0, a1, mosaic_size):
+            average_brightness = get_brightness(array, mosaic_size, i, j)
+            array = paint_over_pixels(array, average_brightness, step, mosaic_size, i, j)
+    return array
+
+
+def get_brightness(array, mosaic_size, i, j):
+    sum = 0
+    for x in range(i, i + mosaic_size):
+        for y in range(j, j + mosaic_size):
+            for num in range(3):
+                sum += int(array[x][y][num])
+    brightness = int(sum // (3 * mosaic_size ** 2))
+    return brightness
+
+
+def paint_over_pixels(array, brightness, step, mosaic_size, i, j):
+    for x in range(i, i + mosaic_size):
+        for y in range(j, j + mosaic_size):
+            for num in range(3):
+                array[x][y][num] = int(brightness // step) * step
+    return array
+
+
+input_name = input('Введите название изображения ')
+output_name = input('Введите название выходного файла ')
+img = Image.open(input_name)
+array = np.array(img)
+mosaic_size = int(input('Введите размер мозаики '))
+step = int(input('Введите величину градаций серого '))
+res = Image.fromarray(filter_image(array, mosaic_size))
+res.save(output_name)
