@@ -2,6 +2,7 @@ from PIL import Image
 import numpy as np
 import easygui
 from collections import namedtuple
+import sys
 
 Size = namedtuple("Size", ["width", "height"])
 
@@ -32,19 +33,17 @@ def get_mosaic(raw_image, mosaic_size=Size(10, 10), discrete_step=50):
             average_brightness = np.sum(
                 raw_image[i: i + mosaic_size.width, j: j + mosaic_size.height]) / 3 // (mosaic_size.width * mosaic_size.height)
 
-            # for x in range(i, i + mosaic_size.width):
-            #     for y in range(j, j + mosaic_size.height):
-            #         raw_image[x][y][0] = int(
-            #             average_brightness // discrete_step) * discrete_step
-            #         raw_image[x][y][1] = int(
-            #             average_brightness // discrete_step) * discrete_step
-            #         raw_image[x][y][2] = int(
-            #             average_brightness // discrete_step) * discrete_step
             raw_image[i: i + mosaic_size.width, j: j + mosaic_size.height:] = int(
                 average_brightness // discrete_step) * discrete_step
     return Image.fromarray(raw_image)
 
 
-raw_image = open_image_as_array()
-mosaic = get_mosaic(raw_image)
-save_image(mosaic)
+if __name__ == "__main__":
+    if "console" in sys.argv:
+        raw_image = open_image_as_array(input("Введите путь: "))
+        mosaic = get_mosaic(raw_image)
+        save_image(mosaic, input("Введите путь и имя файла для сохранения: "))
+    elif "dialog" in sys.argv or len(sys.argv) == 1:
+        raw_image = open_image_as_array()
+        mosaic = get_mosaic(raw_image)
+        save_image(mosaic)
