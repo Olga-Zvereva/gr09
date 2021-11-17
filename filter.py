@@ -30,9 +30,11 @@ def paint_over_pixels(array, brightness, step, mosaic_size, i, j):
     return array
 
 
-img = Image.open("img2.jpg")
+input_name = input('Введите название изображения ')
+output_name = input('Введите название выходного файла ')
+img = Image.open(input_name)
 array = np.array(img)
-mosaic_size = 10
-step = 50
+mosaic_size = int(input('Введите размер мозаики '))
+step = int(input('Введите величину градаций серого '))
 res = Image.fromarray(filter_image(array, mosaic_size))
-res.save('res.jpg')
+res.save(output_name)
