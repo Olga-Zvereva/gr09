@@ -1,28 +1,39 @@
 from PIL import Image
 import numpy as np
-img = Image.open("img2.jpg")
-arr = np.array(img)
-a = len(arr)
-a1 = len(arr[1])
-i = 0
-while i < a:
-    j = 0
-    while j < a1:
-        s = 0
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                n0 = arr[n][n1][0]
-                n2 = arr[n][n1][1]
-                n3 = arr[n][n1][2]
-                M = n0 + n2 + n3
-                s += M / 3
-        s = int(s // 100)
-        for n in range(i, i + 10):
-            for n1 in range(j, j + 10):
-                arr[n][n1][0] = int(s // 50) * 50
-                arr[n][n1][1] = int(s // 50) * 50
-                arr[n][n1][2] = int(s // 50) * 50
-        j = j + 10
-    i = i + 10
-res = Image.fromarray(arr)
-res.save('res.jpg')
+
+def createFilter(size, step):
+    width = len(imageToArray)
+    height = len(imageToArray[1])
+    x = 0
+    while x < width:
+        y = 0
+        while y < height:
+            brightness = getBrightness(x, y, size)
+            getColorPix(brightness, x, y, size, step)
+            y += size
+        x += size
+
+def getBrightness(x, y, size):
+    res = 0
+    for x in range(x, x + size):
+        for y in range(y, y + size):
+            for e in imageToArray[x][y]:
+                res += e // 3
+    return res // size ** 2
+
+
+def getColorPix(brightness, x, y, size, grayscale):
+    for x in range(x, x + size):
+        for y in range(y, y + size):
+            for e in imageToArray[x][y]:
+                e = brightness // grayscale * grayscale
+
+
+size = int(input())
+step = int(input())
+imageToArray = np.array(Image.open("img2.jpg"))
+
+createFilter(size, step)
+
+resultImage = Image.fromarray(imageToArray)
+resultImage.save('res.jpg') 
