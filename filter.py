@@ -40,6 +40,8 @@ if __name__ == "__main__":
     read_name = input()
     write_name = input()
     arr = read(read_name)
-    arr = to_grayscale(arr, 5, 15)
+    block_size = int(input())
+    grayscale = int(input())
+    arr = to_grayscale(arr, block_size, grayscale)
     write(arr, write_name)
 
