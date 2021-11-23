@@ -2,6 +2,7 @@ from PIL import Image
 import numpy as np
 from math import ceil
 
+
 def read(filename):
     """
     Чтение файла с изображением в массив Numpy
@@ -28,8 +29,8 @@ def get_mean(array, px_per_brick, row_cell, col_cell):
     >>> get_mean(np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), 2, 0, 0)
     3.0
     """
-    slice = array[row_cell:row_cell + px_per_brick, col_cell:col_cell + px_per_brick]
-    return np.mean(slice)
+    block = array[row_cell:row_cell + px_per_brick, col_cell:col_cell + px_per_brick]
+    return np.mean(block)
 
 
 def update_array(array, row_cell, col_cell, px_per_brick, px_in_grade):
@@ -88,4 +89,3 @@ if __name__ == "__main__":
     grayscale = int(input())
     arr = to_grayscale(arr, block_size, grayscale)
     write(arr, write_name)
-
