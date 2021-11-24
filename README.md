@@ -1,5 +1,5 @@
 Время работы файла filter.py :
-</br><img src="D:\Users\Documents\GitHub\gr09\Скриншоты\Время работы filter.jpg"/>
+</br><img src="gr09\Скриншоты\Время работы filter.jpg"/>
 
 Время работы файла old_filter.py :
 </br><img src="D:\Users\Documents\GitHub\gr09\Скриншоты\Время работы old_filter.jpg"/>
