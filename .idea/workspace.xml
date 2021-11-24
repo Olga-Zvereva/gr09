@@ -6,12 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="19318020-52e8-463e-8834-69796a607131" name="Changes" comment="Профилирование">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Скриншоты/Время работы filter.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Скриншоты/Время_работы_filter.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Скриншоты/Время работы filter_with_filename.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Скриншоты/Время_работы_filter_with_filename.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Скриншоты/Время работы old_filter.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Скриншоты/Время_работы_old_filter.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Скриншоты/Результат запуска debugger.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Скриншоты/Результат_запуска_debugger.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Скриншоты/Результат запуска doctest.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/Скриншоты/Результат_запуска_doctest.jpg" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -159,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1637776774719</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Профилирование">
+      <created>1637777286533</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1637777286533</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -179,7 +180,7 @@
     <MESSAGE value="Этап 2" />
     <MESSAGE value="Этап 3" />
     <MESSAGE value="Этап 4" />
-    <MESSAGE value="Профилирование" />
-    <option name="LAST_COMMIT_MESSAGE" value="Профилирование" />
+    <MESSAGE value="Обновил readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="Обновил readme" />
   </component>
 </project>
